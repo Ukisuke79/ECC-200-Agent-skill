@@ -83,6 +83,6 @@ budgetly.online/demo — الرابط فالبايو.
 
 `VOICE-PREFERENCE.md`: selected voice ID and the user's approval.
 `audio/`: retained narration files for future reference.
-`sources/`: original user-supplied screenshots.
+`sources/`: original user-supplied screenshots and official Budgetly logo. The logo is used on every reel and matching cover; only transparent padding was cropped for placement. This branding update retains the existing narration and sound effects without resynthesizing speech.
 `NARRATION.md`: full spoken scripts.
 `render-manifest.json`: video specifications and decode checks.

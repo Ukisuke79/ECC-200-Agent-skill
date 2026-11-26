@@ -10,6 +10,15 @@ R=Path(__file__).resolve().parent
 T=R.parent.parent/'.cache'/'budgetly-render';T.mkdir(parents=True,exist_ok=True)
 F=imageio_ffmpeg.get_ffmpeg_exe()
 WHITE='#f1f7f5';GREEN='#38edb1';MUTED='#a8c4bb'
+LOGO=Image.open(R/'sources'/'budgetly-logo.png').convert('RGBA')
+
+def paste_logo(canvas,xy,size):
+ """Composite the supplied logo, preserving its proportions and transparency."""
+ logo=LOGO.copy()
+ logo.thumbnail((size,size),Image.Resampling.LANCZOS)
+ x,y=xy
+ canvas.paste(logo,(x+(size-logo.width)//2,y+(size-logo.height)//2),logo)
+
 DATA=[('01-personal',['فين مشاو','فلوسي؟'],[
 ('كتسالي الشهر وكتقول، فين مشاو فلوسي؟','dashboard','فلوسك، بوضوح'),
 ('وقف التخمين! بادجيتلي كيعاونك تشوف شحال دخل، شحال خرج، وشحال بقى.','monthcards','دخل • خرج • بقى'),
@@ -80,9 +89,8 @@ def crop_shot(im,shot,top,height):
 
 def frame(titles,caption,shot,step,progress):
  im=background();d=ImageDraw.Draw(im)
- d.rounded_rectangle((66,76,126,136),radius=17,fill=GREEN)
- d.rounded_rectangle((82,94,112,118),radius=4,outline='#0b2025',width=3)
- d.text((145,82),'Budgetly',font=font(43),fill=WHITE)
+ paste_logo(im,(66,66),80)
+ d.text((163,82),'Budgetly',font=font(43),fill=WHITE)
  d.rounded_rectangle((748,86,1008,132),radius=23,fill='#193d3b');text(d,'DARIJA / DEMO',98,21,GREEN,False,878)
  text(d,titles[0],205,91);text(d,titles[1],340,100,GREEN)
  d.rounded_rectangle((64,480,1016,1140),radius=35,fill='#dbeae5')
@@ -104,7 +112,8 @@ def frame(titles,caption,shot,step,progress):
 
 def cover(slug,titles,shot):
  im=background();d=ImageDraw.Draw(im)
- d.rounded_rectangle((380,270,700,345),radius=26,fill=GREEN);text(d,'Budgetly',284,43,'#0b2025',False)
+ paste_logo(im,(365,258),100)
+ d.text((483,277),'Budgetly',font=font(43),fill=WHITE)
  text(d,titles[0],420,96);text(d,titles[1],560,100,GREEN)
  d.rounded_rectangle((62,740,1018,1320),radius=34,fill='#e8f3ee');crop_shot(im,shot,765,530)
  d=ImageDraw.Draw(im);text(d,'صور من الحساب التجريبي',1355,29,MUTED)
